@@ -34,10 +34,9 @@ const db = new Database({
     database: "employee_DB"
 });
 
-let userSelect;
 
 async function main(){
-    userSelect = await inquirer.prompt(
+    const userSelect = await inquirer.prompt(
         {
             type: 'list',
             name: 'choice',
@@ -108,8 +107,8 @@ function viewByManager(){
     main();
 }
 
-function addEmployee(){
-    userSelect = await inquirer.prompt([
+async function addEmployee(){
+    await inquirer.prompt([
         {
           type: 'input',
           message: `Enter employee's first name`,
@@ -119,20 +118,36 @@ function addEmployee(){
           type: 'input',
           message: `Enter employee's last name`,
           name: 'last_name'
+        },
+        {
+            type: 'input',
+            message: `Please enter role id:`,
+            name: 'roleID'
         }
-    ])
-
-
-    
-
+    ]).then(function(results){
+        db.query(
+            'INSERT INTO employees SET ?',
+            {
+              first_name: results.first_name,
+              last_name: results.last_name,
+              role_id: results.roleID,
+              manager_id: null
+            },
+            function (err, results) {
+                if ( err ) return reject( err );
+                
+            }
+        )
+        console.table(results);
+        main();
     }
     
-    db.query(`SELECT first_name, last_name FROM employees WHERE manager_id > 0`, function (err, results) {
-        if ( err ) return reject( err );
-        console.table(results);
-    });
-    main();
-}
+)}
+    
+    
+
+    
+  
 
 function addDepartment(){
 
