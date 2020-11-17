@@ -36,23 +36,50 @@ const db = new Database({
 let userSelect;
 
 async function main(){
-userSelect = await inquirer.prompt(
-    {
-        type: 'list',
-        name: 'choice',
-        message: 'Please select an option:',
-        choices: [
-            'View All Employees',
-            'View Employees by Department',
-            'View Employees by Manager',
-            'Add Employee', 
-            'Add Department',
-            'Add Role',
-            'Update Employee Roles', 
-            'Exit'
-        ]        
+    userSelect = await inquirer.prompt(
+        {
+            type: 'list',
+            name: 'choice',
+            message: 'Welcome! Please select an option:',
+            choices: [
+                'View All Employees',
+                'View Employees by Department',
+                'View Employees by Manager',
+                'Add Employee', 
+                'Add Department',
+                'Add Role',
+                'Update Employee Roles', 
+                'Exit'
+            ]        
+        }
+    );
+
+    switch (userSelect.choice) {
+        case "View All Employees":
+            console.log('1');
+            break;
+        case "View Employees by Department":
+            console.log('2');
+            break;
+        case "View Employees by Manager":
+            console.log('3');
+            break;
+        case "Add Employee":
+            console.log('4');
+            break;
+        case "Add Department":
+            console.log('5');
+            break;
+        case "Add Role":
+            console.log('6');
+            break;
+        case "Update Employee Roles":
+            console.log('7');
+            break;
+        case "Exit":
+            console.log('8');
+            break;    
     }
-);
 
 
 
