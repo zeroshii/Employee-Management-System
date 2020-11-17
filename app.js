@@ -1,5 +1,6 @@
 const mysql = require ('mysql');
 const inquirer = require ('inquirer');
+const cTable = require ('console.table');
 
 class Database {
     constructor( config ) {
@@ -57,6 +58,10 @@ async function main(){
     switch (userSelect.choice) {
         case "View All Employees":
             console.log('1');
+            let view = db.query(
+                `SELECT * FROM employees`
+            );
+            console.table(view);
             break;
         case "View Employees by Department":
             console.log('2');
@@ -65,24 +70,39 @@ async function main(){
             console.log('3');
             break;
         case "Add Employee":
-            console.log('4');
+            addEmployee();
             break;
         case "Add Department":
-            console.log('5');
+            addDepartment();
             break;
         case "Add Role":
-            console.log('6');
+            addRole();
             break;
         case "Update Employee Roles":
-            console.log('7');
+            updateRole();
             break;
         case "Exit":
             console.log('8');
             break;    
     }
-
-
-
 await db.close()
 }
 main();
+
+function addEmployee(){
+    // return db.query(
+    //     `INSERT INTO employees (firstName, lastName, role)`
+    // )
+}
+
+function addDepartment(){
+
+}
+
+function addRole(){
+
+}
+
+function updateRole(){
+
+}

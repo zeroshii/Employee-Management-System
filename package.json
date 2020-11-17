@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/zeroshii/Employee-Management-System/issues"
   },
-  "homepage": "https://github.com/zeroshii/Employee-Management-System#readme"
+  "homepage": "https://github.com/zeroshii/Employee-Management-System#readme",
+  "dependencies": {
+    "console.table": "^0.10.0"
+  }
 }

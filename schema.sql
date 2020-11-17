@@ -29,10 +29,26 @@ CREATE TABLE employees (
   FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
-INSERT into department (name) VALUES ("Finance");
-INSERT into department (name) VALUES ("Marketing");
-INSERT into department (name) VALUES ("Human Resource");
-INSERT into department (name) VALUES ("Sales");
-INSERT into department (name) VALUES ("Production");
+INSERT into department (id,`name`) VALUES 
+(1, "Finance"),
+(2, "Marketing"),
+(3, "Human Resource"),
+(4, "Sales"),
+(5, "Production");
 
-INSERT into roles (title, salary, id) VALUES ("Sales Manager", 80000, 1);
+INSERT into roles (title, salary, id) VALUES 
+("Sales Manager", 80000, 1),
+("Product Manager", 80000, 2),
+("Graphic Designer ", 50000, 3),
+("Clerk", 40000, 4),
+("Sales Agent", 50000, 5);
+
+INSERT into employees (first_name, last_name, manager_id, role_id) VALUES 
+("Yuzuru", "Hanyu", 10, 20),
+("Yibo", "Wang", 11, 21),
+("Zhan", "Xiao", NULL, 22),
+("Jane", "Doe", NULL, 23),
+("John", "Smith", NULL, 24);
+
+
+
