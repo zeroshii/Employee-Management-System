@@ -57,15 +57,12 @@ async function main(){
 
     switch (userSelect.choice) {
         case "View All Employees":
-            console.log('1');
             viewEmployees();
             break;
         case "View Employees by Department":
-            console.log('2');
             viewByDept();
             break;
         case "View Employees by Manager":
-            console.log('3');
             viewByManager();
             break;
         case "Add Employee":
@@ -81,30 +78,60 @@ async function main(){
             updateRole();
             break;
         case "Exit":
-            console.log('8');
+            db.close()
             break;    
     }
-await db.close()
 }
 main();
 
 function viewEmployees(){
-    const view = db.query(`SELECT * FROM employees`);
-    console.table(view);
+    db.query(`SELECT * FROM employees`, function (err, results) {
+        if ( err ) return reject( err );
+        console.table(results);
+    });
+    main();
 }
 
 function viewByDept(){
-
+    db.query(`SELECT * FROM department`, function (err, results) {
+        if ( err ) return reject( err );
+        console.table(results);
+    });
+    main();
 }
 
 function viewByManager(){
-
+    db.query(`SELECT first_name, last_name FROM employees WHERE manager_id > 0`, function (err, results) {
+        if ( err ) return reject( err );
+        console.table(results);
+    });
+    main();
 }
 
 function addEmployee(){
-    // return db.query(
-    //     `INSERT INTO employees (firstName, lastName, role)`
-    // )
+    userSelect = await inquirer.prompt([
+        {
+          type: 'input',
+          message: `Enter employee's first name`,
+          name: 'first_name'
+        },
+        {
+          type: 'input',
+          message: `Enter employee's last name`,
+          name: 'last_name'
+        }
+    ])
+
+
+    
+
+    }
+    
+    db.query(`SELECT first_name, last_name FROM employees WHERE manager_id > 0`, function (err, results) {
+        if ( err ) return reject( err );
+        console.table(results);
+    });
+    main();
 }
 
 function addDepartment(){
