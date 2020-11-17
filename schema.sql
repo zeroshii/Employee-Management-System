@@ -36,19 +36,19 @@ INSERT into department (id,`name`) VALUES
 (4, "Sales"),
 (5, "Production");
 
-INSERT into roles (title, salary, id) VALUES 
-("Sales Manager", 80000, 1),
-("Product Manager", 80000, 2),
-("Graphic Designer ", 50000, 3),
-("Clerk", 40000, 4),
-("Sales Agent", 50000, 5);
+INSERT into roles (title, salary, id, dept_id) VALUES 
+("Sales Manager", 80000, 1, 4),
+("Product Manager", 80000, 2, 1),
+("Graphic Designer ", 50000, 3, 2),
+("Clerk", 40000, 4, 5),
+("Sales Agent", 50000, 5, 4);
 
 INSERT into employees (first_name, last_name, manager_id, role_id) VALUES 
-("Yuzuru", "Hanyu", 10, 20),
-("Yibo", "Wang", 11, 21),
-("Zhan", "Xiao", NULL, 22),
-("Jane", "Doe", NULL, 23),
-("John", "Smith", NULL, 24);
+("Yuzuru", "Hanyu", 1, 1),
+("Yibo", "Wang", 2, 2),
+("Zhan", "Xiao", NULL, 3),
+("Jane", "Doe", NULL, 4),
+("John", "Smith", NULL, 5);
 
 
 
