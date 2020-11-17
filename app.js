@@ -58,16 +58,15 @@ async function main(){
     switch (userSelect.choice) {
         case "View All Employees":
             console.log('1');
-            let view = db.query(
-                `SELECT * FROM employees`
-            );
-            console.table(view);
+            viewEmployees();
             break;
         case "View Employees by Department":
             console.log('2');
+            viewByDept();
             break;
         case "View Employees by Manager":
             console.log('3');
+            viewByManager();
             break;
         case "Add Employee":
             addEmployee();
@@ -88,6 +87,19 @@ async function main(){
 await db.close()
 }
 main();
+
+function viewEmployees(){
+    const view = db.query(`SELECT * FROM employees`);
+    console.table(view);
+}
+
+function viewByDept(){
+
+}
+
+function viewByManager(){
+
+}
 
 function addEmployee(){
     // return db.query(
