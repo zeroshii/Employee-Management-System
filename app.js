@@ -1,7 +1,9 @@
+// Dependencies
 const mysql = require ('mysql');
 const inquirer = require ('inquirer');
 const cTable = require ('console.table');
 
+// Create connection
 class Database {
     constructor( config ) {
         this.connection = mysql.createConnection( config );
@@ -34,7 +36,7 @@ const db = new Database({
     database: "employee_DB"
 });
 
-
+// Main menu with Inquirer
 async function main(){
     const userSelect = await inquirer.prompt(
         {
@@ -49,12 +51,13 @@ async function main(){
                 'Add Employee', 
                 'Add Department',
                 'Add Role',
-                'Update Employee Roles', 
+                'Remove Employee', 
                 'Exit'
             ]        
         }
     );
 
+    // Calls function for the selected user choice
     switch (userSelect.choice) {
         case "View All Employees":
             viewEmployees();
@@ -77,7 +80,7 @@ async function main(){
         case "Add Role":
             addRole();
             break;
-        case "Update Employee Roles":
+        case "Remove Employee":
             removeEmployee()
             break;
         case "Exit":
@@ -147,13 +150,11 @@ async function addEmployee(){
             },
             function (err, results) {
                 if ( err ) return reject( err );
-                
             }
         )
         console.table(results);
         main();
     }
-    
 )}
 
 async function addDepartment(){
@@ -196,11 +197,9 @@ async function addRole(){
             {
               title: results.title,
               salary: results.salary
-
             },
             function (err, results) {
                 if ( err ) return reject( err );
-                
             }
         )
         console.table(results);
@@ -212,28 +211,19 @@ async function addRole(){
 async function removeEmployee(){
     await inquirer.prompt([
         {
-          type: 'input',
+          type: 'number',
           message: `Enter ID of the employee you wish to remove:`,
           name: 'id'
         }
     ]).then(function(results){
-        console.log("Checking:", results.id)
         db.query(
-            
             'DELETE FROM employees WHERE id = ?',
-            {
-              id: results.id,
-            },
-            
-            function (err, results) {
-                console.log(err)
-                console.log(results)
+                results.id,
+            function (err) {
                 if ( err ) return reject( err );
-                
-                
             }
         )
-        
+        console.log(`Employee with ID ${results.id} is removed.`);
         main();
     }
 )}
