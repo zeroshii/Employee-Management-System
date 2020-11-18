@@ -217,15 +217,23 @@ async function removeEmployee(){
           name: 'id'
         }
     ]).then(function(results){
+        console.log("Checking:", results.id)
         db.query(
+            
             'DELETE FROM employees WHERE id = ?',
             {
               id: results.id,
             },
+            
             function (err, results) {
+                console.log(err)
+                console.log(results)
                 if ( err ) return reject( err );
+                
+                
             }
         )
+        
         main();
     }
 )}
