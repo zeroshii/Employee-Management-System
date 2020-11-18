@@ -43,7 +43,8 @@ async function main(){
             message: 'Welcome! Please select an option:',
             choices: [
                 'View All Employees',
-                'View Employees by Department',
+                'View Departments',
+                'View Roles',
                 'View Employees by Manager',
                 'Add Employee', 
                 'Add Department',
@@ -58,8 +59,11 @@ async function main(){
         case "View All Employees":
             viewEmployees();
             break;
-        case "View Employees by Department":
-            viewByDept();
+        case "View Departments":
+            viewDepartments();
+            break;
+        case "View Roles":
+            viewRoles();
             break;
         case "View Employees by Manager":
             viewByManager();
@@ -91,8 +95,16 @@ function viewEmployees(){
     main();
 }
 
-function viewByDept(){
+function viewDepartments(){
     db.query(`SELECT * FROM department`, function (err, results) {
+        if ( err ) return reject( err );
+        console.table(results);
+    });
+    main();
+}
+
+function viewRoles(){
+    db.query(`SELECT * FROM roles`, function (err, results) {
         if ( err ) return reject( err );
         console.table(results);
     });
@@ -143,19 +155,60 @@ async function addEmployee(){
     }
     
 )}
+
+async function addDepartment(){
+    await inquirer.prompt([
+        {
+          type: 'input',
+          message: `Enter the name of the new department:`,
+          name: 'Department'
+        }
+    ]).then(function(results){
+        db.query(
+            'INSERT INTO department SET ?',
+            {
+              name: results.Department,
+
+            },
+            function (err, results) {
+                if ( err ) return reject( err );
+            }
+        )
+        console.table(results);
+        main();
+    }
+)}
+
+async function addRole(){
+    await inquirer.prompt([
+        {
+            type: 'input',
+            message: `Enter the role's title:`,
+            name: 'title'
+        },
+        {
+            type: 'input',
+            message: `Enter the role's salary:`,
+            name: 'salary'
+        }
+    ]).then(function(results){
+        db.query(
+            'INSERT INTO roles SET ?',
+            {
+              title: results.title,
+              salary: results.salary
+
+            },
+            function (err, results) {
+                if ( err ) return reject( err );
+                
+            }
+        )
+        console.table(results);
+        main();
+    }
+)}
     
-    
-
-    
-  
-
-function addDepartment(){
-
-}
-
-function addRole(){
-
-}
 
 function updateRole(){
 
