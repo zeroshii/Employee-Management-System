@@ -45,7 +45,7 @@ async function main(){
                 'View All Employees',
                 'View Departments',
                 'View Roles',
-                'View Employees by Manager',
+                'View Managers',
                 'Add Employee', 
                 'Add Department',
                 'Add Role',
@@ -65,7 +65,7 @@ async function main(){
         case "View Roles":
             viewRoles();
             break;
-        case "View Employees by Manager":
+        case "View Managers":
             viewByManager();
             break;
         case "Add Employee":
@@ -78,7 +78,7 @@ async function main(){
             addRole();
             break;
         case "Update Employee Roles":
-            updateRole();
+            removeEmployee()
             break;
         case "Exit":
             db.close()
@@ -161,14 +161,13 @@ async function addDepartment(){
         {
           type: 'input',
           message: `Enter the name of the new department:`,
-          name: 'Department'
+          name: 'department'
         }
     ]).then(function(results){
         db.query(
             'INSERT INTO department SET ?',
             {
-              name: results.Department,
-
+              name: results.department,
             },
             function (err, results) {
                 if ( err ) return reject( err );
@@ -210,6 +209,23 @@ async function addRole(){
 )}
     
 
-function updateRole(){
-
-}
+async function removeEmployee(){
+    await inquirer.prompt([
+        {
+          type: 'input',
+          message: `Enter ID of the employee you wish to remove:`,
+          name: 'id'
+        }
+    ]).then(function(results){
+        db.query(
+            'DELETE FROM employees WHERE id = ?',
+            {
+              id: results.id,
+            },
+            function (err, results) {
+                if ( err ) return reject( err );
+            }
+        )
+        main();
+    }
+)}
