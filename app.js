@@ -126,12 +126,12 @@ async function addEmployee(){
     await inquirer.prompt([
         {
           type: 'input',
-          message: `Enter employee's first name`,
+          message: `Enter employee's first name:`,
           name: 'first_name'
         },
         {
           type: 'input',
-          message: `Enter employee's last name`,
+          message: `Enter employee's last name:`,
           name: 'last_name'
         },
         {
@@ -219,7 +219,7 @@ async function removeEmployee(){
         db.query(
             'DELETE FROM employees WHERE id = ?',
                 results.id,
-            function (err) {
+            function (err, results) {
                 if ( err ) return reject( err );
             }
         )
